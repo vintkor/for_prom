@@ -1,0 +1,109 @@
+{% extends 'first/base.html' %}
+{% load l10n %}
+
+
+{% block title %} List all products {% endblock title %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/">Главная</a></li>
+    {% if category %}
+        <li><a href="{% url 'all_products' %}">Каталог</a></li>
+        {% for parent in category.get_ancestors %}
+            <li><a href="{% url 'catalog_category' parent.id %}">{{ parent.title }}</a></li>
+        {% endfor %}
+        <li class="active">{{ category.title }}</li>
+    {% else %}
+        <li class="active">Каталог</li>
+    {% endif %}
+</ol>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="catalog">
+    <div class="container">
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col-md-12" style="text-align: center">
+                {% if category %}
+                    <h1>{{ category.title }} <span class="badge">Страница {{ products.number }} из {{ products.paginator.num_pages }}</span></h1>
+                    {% for children in category.get_children %}
+                        <a href="{% url 'catalog_category' children.id %}">{{ children.title }}</a>
+                    {% endfor %}
+                {% else %}
+                    <h1>Каталог продукции <span class="badge">Страница {{ products.number }} из {{ products.paginator.num_pages }}</span></h1>
+                    {% for children in root_categories %}
+                        <a href="{% url 'catalog_category' children.id %}">{{ children.title }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3 product">
+                    <div class="catalog__product panel panel-default">
+                    <div class="catalog__product-header panel-heading">
+                        <a href="{% url 'catalog_single_product' product.id %}">
+                            <h3 class="catalog__product-title text-center panel-title">{{ product.title }}</h3>
+                        </a>
+                    </div>
+                    <div class="catalog__product-body panel-body">
+                        <img src="{{ product.get_thumb_image }}" alt="{{ product.title }}" class="img-responsive">
+                        <form class="form" action="{% url 'all_products' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ product.id }}" name="product">
+                            <div class="form-group">
+                                <input type="number" name="count" value="{{ product.step | unlocalize }}" class="form-control col-md-12" min="{{ product.step | unlocalize }}" step="{{ product.step | unlocalize }}">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn col-md-12">Купить</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="catalog__product-footer panel-footer">
+                        <span class="text-info">{{ product.get_price_in_main_currency | floatformat:2 }} грн/{{ product.unit.short_name }}</span>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                        <li><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+                    {% endif %}
+                    {% for page in list_pages %}
+                        {% if products.number == page %}
+                            <li class="active"><a>{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                        <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if category %}
+    <div class="cat-desk">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{{ category.title }}</h3>
+                    <div class="cat-desk__text">{{ category.description | safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<style>
+    .product:nth-child(4n+1) {
+        clear: both;
+    }
+</style>
+{% endblock content %}
