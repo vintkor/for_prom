@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'feature',
     'catalog',
     'cart',
+    'information',
     'spider',
 ]
 

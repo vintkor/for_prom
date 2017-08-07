@@ -33,7 +33,7 @@ class CatalogProductAdmin(ImportExportActionModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-product',),
-            'fields': ["title", "slug", "category", "price", "currency", "unit", "step", "description", "text", "image", "active"]
+            'fields': ["title", "slug", "category", "price", "currency", "unit", "step", "description", "text", "image", "active", "condition"]
         }),
     ]
 
