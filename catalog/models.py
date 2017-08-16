@@ -7,7 +7,7 @@ from django.utils.crypto import get_random_string
 from PIL import Image
 from resizeimage import resizeimage
 from testsite.settings import BASE_DIR
-from information.models import Condition
+from information.models import Condition, ProviderFile
 
 
 def set_image_name(instance, filename):
@@ -81,6 +81,7 @@ class CatalogProduct(BaseModel):
     image = models.ImageField(verbose_name="Изображение", blank=True, default='', upload_to=set_image_name)
     active = models.BooleanField(default=True, verbose_name="Вкл/Выкл")
     condition = models.ManyToManyField(Condition, verbose_name='Условия поставщика', default=None, null=True, blank=True)
+    provider_price = models.ManyToManyField(ProviderFile, verbose_name='Прайс поставщика', default=None, null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.title)
