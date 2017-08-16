@@ -54,6 +54,24 @@
                 {{ product.text | safe}}
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Файл</th>
+                            <th>Дата обновления</th>
+                        </tr>
+                    </thead>
+                    {% for price in product.get_files %}
+                        <tr>
+                            <td><a href="{{ price.file.url }}" target="_blank">{{ price.title }}</a></td>
+                            <td>{{ price.updated }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
