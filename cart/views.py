@@ -3,8 +3,10 @@ from .models import Item, Cart
 from testsite.settings import SITE_THEME
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 
+@login_required()
 def show_cart(request):
     items = []
     cart = ''
