@@ -54,6 +54,7 @@
                 {{ product.text | safe}}
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <table class="table">
@@ -72,6 +73,11 @@
                 </table>
             </div>
         </div>
+        {% for item in product.get_conditions %}
+        <div class="row">
+            <div class="col-md-12">{{ item }}</div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 

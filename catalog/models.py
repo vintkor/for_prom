@@ -97,6 +97,9 @@ class CatalogProduct(BaseModel):
         files = ProviderFile.objects.filter(catalogproduct=self)
         return files
 
+    def get_conditions(self):
+        return Condition.objects.filter(catalogproduct=self)
+
     def get_thumb_image(self):
         if self.image:
             url = self.image.url.split('.')
