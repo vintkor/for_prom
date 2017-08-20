@@ -141,6 +141,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+local_path = lambda path: os.path.join(os.path.dirname(__file__), path)
 
 import dj_database_url
 db_from_env = dj_database_url.config()
