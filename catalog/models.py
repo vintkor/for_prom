@@ -111,7 +111,7 @@ class CatalogProduct(BaseModel):
     def get_medium_image(self):
         if self.image:
             url = self.image.url.split('.')
-            url = url[0] + '__800x800.' + url[1]
+            url = url[0] + '__400x400.' + url[1]
         else:
             url = '//placehold.it/400x400'
         return url
