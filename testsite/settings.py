@@ -43,12 +43,12 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'import_export',
-    'blog',
+    # 'blog',
     'feature',
     'catalog',
-    'cart',
+    # 'cart',
     'information',
-    'spider',
+    # 'spider',
 ]
 
 MIDDLEWARE = [
