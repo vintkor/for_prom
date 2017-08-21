@@ -65,9 +65,11 @@
         </div>
         {% for item in product.get_conditions %}
         <div class="row">
-            <h2>{{ item }}</h2>
-            <div class="col-md-12">{{ item.desc }}</div>
-            <hr>
+            <div class="col-md-12">
+                <h2>{{ item }}</h2>
+                {{ item.desc }}
+                <hr>
+            </div>
         </div>
         {% endfor %}
     </div>
