@@ -149,8 +149,8 @@ DATABASES['default'].update(db_from_env)
 
 SITE_THEME = 'first'
 
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT', local_path('media/'))
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.environ.get('MEDIA_ROOT', local_path('media/'))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 # MEDIA_URL = '/media/'
