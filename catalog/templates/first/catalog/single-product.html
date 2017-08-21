@@ -26,7 +26,7 @@
         </div>
         <hr>
         <div class="row" style="margin-bottom: 30px;">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <img class="img-responsive img-thumbnail" src="{{ product.get_medium_image }}" alt="{{ product.title }}">
                 <div class="row">
                     {% for image in images %}
@@ -34,7 +34,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 {{ product.text | safe | truncatewords_html:20}}
                 <div style="font-size: 40px; font-weight: 700; color: #d33; margin-bottom: 20px;">{{ product.get_price_in_main_currency | floatformat:2 }} грн/{{ product.unit.short_name }}</div>
             </div>
@@ -65,7 +65,7 @@
         </div>
         {% for item in product.get_conditions %}
         <div class="row">
-            <div class="col-md-12">{{ item }}</div>
+            <div class="col-md-12">{{ item.condition }}</div>
         </div>
         {% endfor %}
     </div>
