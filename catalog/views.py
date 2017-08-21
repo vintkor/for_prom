@@ -4,8 +4,10 @@ from testsite.settings import SITE_THEME
 from cart.models import Cart, Item
 from django.utils.crypto import get_random_string
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required, permission_required
 
 
+@login_required
 def add_to_cart(request, context, view):
     if request.POST:
         if 'cart_id' in request.COOKIES:
@@ -19,6 +21,7 @@ def add_to_cart(request, context, view):
         return response
 
 
+@login_required
 def all_products(request):
     root_categories = CatalogCategory.objects.filter(level=0)
     products_list = CatalogProduct.objects.all().filter(active=True).order_by('-created')
@@ -45,6 +48,7 @@ def all_products(request):
     return render(request, SITE_THEME + '/catalog/list_view.html', context)
 
 
+@login_required
 def cat_products(request, cat_id):
     category = CatalogCategory.objects.get(id=cat_id)
     descendants = category.get_descendants(include_self=True)
@@ -72,6 +76,7 @@ def cat_products(request, cat_id):
     return render(request, SITE_THEME + '/catalog/list_view.html', context)
 
 
+@login_required
 def single_post(request, product_id):
     product = get_object_or_404(CatalogProduct, pk=product_id)
     context = {
