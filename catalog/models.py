@@ -140,8 +140,8 @@ class CatalogProduct(BaseModel):
         if self.image:
             old_name = self.image.url.split('/')[-1].split('.')[0]
             ext = self.image.url.split('/')[-1].split('.')[1]
-            thumb_size = [300, 360]
-            medium_size = [800, 800]
+            thumb_size = [100, 160]
+            medium_size = [400, 400]
             with open('{}{}'.format(BASE_DIR, self.image.url), 'r+b') as f:
                 with Image.open(f) as image:
                     cover = resizeimage.resize_cover(image, thumb_size)
